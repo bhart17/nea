@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Masonry</title>
+    <link rel="stylesheet" href="masonry.css">
+</head>
+
+<body>
+    <div class="grid" style="height: 500px;">
+        <div class="grid-item"  style="width: 20%; height: 100%;">aaa</div>
+        <div class="grid-item" style="width: 40%; height: 100%">bbb</div>
+        <div class="grid-item" style="width: 40%; height: 100%">ccc</div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script>
+	    var elem = document.querySelector('.grid');
+	    var msnry = new Masonry(elem, {
+	        itemSelector: '.grid-item',
+	        percentPosition: true});
+    </script>
+</body>
+
+</html>
