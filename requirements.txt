@@ -1,0 +1,17 @@
+bottle==0.12.19
+bottle-websocket==0.2.9
+Eel==0.14.0
+future==0.18.2
+gevent==21.1.2
+gevent-websocket==0.10.1
+greenlet==1.1.0
+Jinja2==3.0.1
+MarkupSafe==2.0.1
+mypy==0.910
+mypy-extensions==0.4.3
+pyparsing==2.4.7
+toml==0.10.2
+typing-extensions==3.10.0.0
+whichcraft==0.6.1
+zope.event==4.5.0
+zope.interface==5.4.0
