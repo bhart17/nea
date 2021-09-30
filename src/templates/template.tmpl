@@ -5,9 +5,20 @@
 				{{ make_div(item.content) }}
 			</div>
 		{% else %}
-			<div class="fill" class={{item.type}} style="background-color: {{item.colour}};"></div>
+			{{ gen_content(item) }}
 		{% endif %}
 	{% endfor %}
+{% endmacro %}
+
+{% macro gen_content(data) %}
+	{% if data.type == "colour" %}
+		<div class="fill" class={{data.type}} style="background-color: {{data.content}};"></div>
+	{% endif %}
+	{% if data.type == "text" %}
+		<div type="fill" class={{data.type}} style="text-align: center;">
+			<h1>{{data.content}}</h1>
+		</div>
+	{% endif %}
 {% endmacro %}
 
 <!doctype html>
