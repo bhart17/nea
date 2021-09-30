@@ -1,0 +1,24 @@
+{% macro make_div(data) %}
+	{%- for item in data %}
+		{%- if item.type in ("row","col") %}
+			<div class={{item.type}} style="{%- if item.type == "row" %}height{%- else %}width{%- endif %}:{{(item.size*100)~"%"}}">
+				{{ make_div(item.content) }}
+			</div>
+		{% else %}
+			<div class="fill" class={{item.type}} style="background-color: {{item.colour}};"></div>
+		{% endif %}
+	{% endfor %}
+{% endmacro %}
+
+<!doctype html>
+<html>
+	<head>
+		<title>Display Window</title>
+		<link rel="stylesheet" href="../styles.css">
+	</head>
+	<body>
+		<div class="wrapper">
+			{{ make_div(contents) }}
+		</div>
+	</body>
+</html>
