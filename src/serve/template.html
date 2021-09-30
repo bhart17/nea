@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Display Window</title>
+		<style type=text/css>
+			* {
+				padding: 0;
+				margin: 0;
+				float: left;
+			}
+			.wrapper {
+				height: 100vh;
+				width: 100vw;
+			}
+			.row {
+				width: 100%;
+			}
+			.col {
+				height: 100%;
+			}
+			.fill {
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+		{% macro make_div(data) %}
+			{%- for item in data %}
+				{%- if item.type in ("row","col") %}
+					<div class={{item.type}} style="{%- if item.type == "row" %}height{%- else %}width{%- endif %}:{{(item.size*100)~"%"}}">
+						{{ make_div(item.content) }}
+					</div>
+				{% else %}
+					<div class="fill" class={{item.type}} style="background-color: {{item.colour}};"></div>
+				{% endif %}
+			{% endfor %}
+		{% endmacro %}
+	</head>
+	<body>
+		<div class="wrapper">
+			{{ make_div(contents) }}
+		</div>
+	</body>
+</html>
