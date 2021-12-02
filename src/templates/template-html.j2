@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base.html" -%}
 
 {%- macro make_div(data) %}
 	{%- for item in data %}
@@ -9,7 +9,7 @@
 						{%- else -%}
 							width
 						{%- endif -%}
-						:{{(item.size*100)~'%'}}">
+						: {{item.size*100}}%">
 				{{ make_div(item.content) }}
 			</div>
 		{%- else %}
@@ -24,12 +24,14 @@
 	{%- endif %}
 	{%- if data.type == "text" %}
 		<div class="text center">
-			<h1>{{data.content}}</h1>
+			<p style="{% for key, value in data.settings.items() -%}
+						{{key}}: {{value}};
+					 {%- endfor %}">{{data.content}}</p>
 		</div>
 	{%- endif %}
-	{%- if data.type == "scrolling" %}
-		<div class="scrolling">
-  			<div class="marquee">
+	{%- if data.type == "scrolling horizontal" %}
+		<div class="scrolling-horizontal">
+  			<div class="marquee" style="animation: marquee {{data.settings['speed']}}s linear infinite;">
 			    <p>{{data.content}}{{data.content}}</p>
 		  	</div>
 		</div>
@@ -46,8 +48,8 @@
 	{%- if data.type == "slideshow" %}
 		<div class="slideshow-container">
 			{%- for image in data.content %}
-				<div class="slides fade">
-				  <img src={{"../"~image}}>
+				<div class="slides fade" {% if loop.first %}style="display: block;"{% endif %}>
+				  <img src="../{{image}}">
 				</div>
 			{%- endfor %}
 		</div>
