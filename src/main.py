@@ -31,11 +31,13 @@ def main() -> None:
                     }]
                 }]
             }, {
-                "type": "col",
-                "size": 1 / 3,
+                "type":
+                "col",
+                "size":
+                1 / 3,
                 "content": [{
-                    "type": "colour",
-                    "content": "blue"
+                    "type": "slideshow",
+                    "content": ["tom.jpg", "tom.jpg", "tom.jpg"]
                 }]
             }, {
                 "type":
@@ -48,11 +50,11 @@ def main() -> None:
                 }]
             }]
         ],
-        "template-css.j2": ["styles.css", []]
+        "template.css": ["styles.css", []]
     }
 
     env = Environment(loader=FileSystemLoader("src/templates"),
-                      autoescape=select_autoescape())
+                      autoescape=select_autoescape(enabled_extensions=()))
 
     for i in content.keys():
         generate(env, "serve/cache/" + content[i][0], i, content[i][1])
