@@ -79,10 +79,10 @@ img {
 
 @keyframes marquee-horizontal {
     from {
-        transform: translate(0, 0);
+        transform: translateX(0);
     }
     to {
-        transform: translate(-50%, 0);
+        transform: translateX(-50%);
     }
 }
 
@@ -99,22 +99,19 @@ img {
     overflow: hidden;
     position: absolute;
     height: 100%;
-    /*max-width: 100%;*/
 }
 
 .marquee-vertical {
     display: inline-block;
-    /*height: 100%;*/
     text-align: center;
-    transform: translateY(100%);
 }
 
 @keyframes marquee-vertical {
     from {
-        transform: translateY(100%);
+        transform: translateY(0%);
     }
     to {
-        transform: translateY(-100%);
+        transform: translateY(-50%);
     }
 }
 

@@ -39,7 +39,7 @@
 	{%- if data.type == "scrolling vertical" %}
 		<div class="scrolling-vertical">
   			<div class="marquee-vertical" style="animation: marquee-vertical {{data.settings['speed']}}s linear infinite;">
-					 {{ make_text(data.content, data.style) }}
+					 {{ (make_text(data.content, data.style)) * 2 }}
 		  	</div>
 		</div>
 	{%- endif %}

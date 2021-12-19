@@ -77,7 +77,7 @@ def main() -> None:
                       autoescape=select_autoescape(enabled_extensions=()))
 
     for i in content.keys():
-        generate(env, SERVE_PATH + "/cache/" + content[i][0], i, content[i][1])
+        generate(env, f"{SERVE_PATH}/cache/" + content[i][0], i, content[i][1])
 
     eel.init(SERVE_PATH)
 
