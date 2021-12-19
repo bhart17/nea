@@ -56,7 +56,7 @@ img {
     overflow: hidden;
 }
 
-.marquee {
+.marquee-horizontal {
     white-space: nowrap;
     overflow: hidden;
     display: inline-block;
@@ -74,29 +74,46 @@ img {
 }
 
 .fade {
-    animation-name: fade;
-    animation-duration: 1.5s;
+    animation: fade 1.5s cubic-bezier(0.86, 0.17, 0.54, 0.69);
 }
 
-
-/*.marquee p {
-    display: inline-block;
-}*/
-
-@keyframes marquee {
-    0% {
+@keyframes marquee-horizontal {
+    from {
         transform: translate(0, 0);
     }
-    100% {
+    to {
         transform: translate(-50%, 0);
     }
 }
 
 @keyframes fade {
     from {
-        opacity: .4
+        opacity: 0.5;
     }
     to {
-        opacity: 1
+        opacity: 1;
+    }
+}
+
+.scrolling-vertical {
+    overflow: hidden;
+    position: absolute;
+    height: 100%;
+    /*max-width: 100%;*/
+}
+
+.marquee-vertical {
+    display: inline-block;
+    /*height: 100%;*/
+    text-align: center;
+    transform: translateY(100%);
+}
+
+@keyframes marquee-vertical {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(-100%);
     }
 }
