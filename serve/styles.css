@@ -117,3 +117,7 @@ img {
         transform: translateY(-100%);
     }
 }
+
+p {
+    display: inline-block;
+}

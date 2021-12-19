@@ -32,7 +32,7 @@
 	{%- if data.type == "scrolling horizontal" %}
 		<div class="scrolling-horizontal">
   			<div class="marquee-horizontal" style="animation: marquee-horizontal {{data.settings['speed']}}s linear infinite;">
-					 {{ make_text(data.content, data.style) }}{{ make_text(data.content, data.style) }}
+					 {{ (make_text((data.content), data.style)) * 2 }}
 		  	</div>
 		</div>
 	{%- endif %}

@@ -3,6 +3,8 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 
 def main() -> None:
+    SERVE_PATH = "serve"
+
     content = {
         "template-html.j2": [
             "index.html",
@@ -75,9 +77,9 @@ def main() -> None:
                       autoescape=select_autoescape(enabled_extensions=()))
 
     for i in content.keys():
-        generate(env, "serve/cache/" + content[i][0], i, content[i][1])
+        generate(env, SERVE_PATH + "/cache/" + content[i][0], i, content[i][1])
 
-    eel.init("serve")
+    eel.init(SERVE_PATH)
 
     eel.start('cache/index.html',
               cmdline_args=["--start-fullscreen"],
