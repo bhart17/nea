@@ -1,7 +1,47 @@
 document.addEventListener('DOMContentLoaded', () => { main() });
 
 function main() {
-    progress_slides();
+    setup()
+    refresh()
+}
+
+function refresh() {
+    progress_slides()
+    setTimeout(refresh, parseInt("{{ contents }}"))
+}
+
+function setup() {
+    const speed = 0.5;
+    const vertical = document.getElementsByClassName("scrolling-vertical");
+    for (const current of vertical) {
+        const copies = Math.max(Math.round(2 / (current.querySelector("p").offsetHeight / current.offsetHeight)), 2);
+        for (var i = 0; i < copies - 1; i++) {
+            current.firstElementChild.appendChild(current.querySelector("p").cloneNode(deep = true));
+        }
+        current.firstElementChild.animate([
+            { transform: "translateY(0)" },
+            { transform: `translateY(-${100 / copies}%)` }
+        ], {
+            duration: current.firstElementChild.offsetHeight / speed,
+            iterations: Infinity
+        });
+        //console.log(current.firstElementChild);
+        //console.log(current.firstElementChild.offsetWidth / speed);
+    } // s = d / t
+    const horizontal = document.getElementsByClassName("scrolling-horizontal");
+    for (const current of horizontal) {
+        const copies = Math.max(Math.round(2 / (current.querySelector("p").offsetWidth / current.offsetWidth)), 2);
+        for (var i = 0; i < copies - 1; i++) {
+            current.firstElementChild.appendChild(current.querySelector("p").cloneNode(deep = true));
+        }
+        current.firstElementChild.animate([
+            { transform: "translateX(0)" },
+            { transform: `translateX(-${100 / copies}%)` }
+        ], {
+            duration: current.firstElementChild.offsetWidth / speed,
+            iterations: Infinity
+        });
+    }
 }
 
 function progress_slides() {
@@ -16,5 +56,5 @@ function progress_slides() {
             }
         }
     }
-    setTimeout(progress_slides, {{ contents }});
+    //setTimeout(progress_slides, {{ contents }});
 }

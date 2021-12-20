@@ -99,6 +99,8 @@ img {
     overflow: hidden;
     position: absolute;
     height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .marquee-vertical {
@@ -117,4 +119,8 @@ img {
 
 p {
     display: inline-block;
+}
+
+.scrolling-vertical p {
+    display: inline;
 }

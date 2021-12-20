@@ -31,15 +31,15 @@
 	{%- endif %}
 	{%- if data.type == "scrolling horizontal" %}
 		<div class="scrolling-horizontal">
-  			<div class="marquee-horizontal" style="animation: marquee-horizontal {{data.settings['speed']}}s linear infinite;">
-					 {{ (make_text((data.content), data.style)) * 2 }}
+  			<div class="marquee-horizontal">{# style="animation: marquee-horizontal {{data.settings['speed']}}s linear infinite;"#}
+					 {{ make_text((data.content), data.style)}}
 		  	</div>
 		</div>
 	{%- endif %}
 	{%- if data.type == "scrolling vertical" %}
 		<div class="scrolling-vertical">
-  			<div class="marquee-vertical" style="animation: marquee-vertical {{data.settings['speed']}}s linear infinite;">
-					 {{ (make_text(data.content, data.style)) * 2 }}
+  			<div class="marquee-vertical">{# style="animation: marquee-vertical {{data.settings['speed']}}s linear infinite;"#}
+					 {{ make_text(data.content, data.style) }}
 		  	</div>
 		</div>
 	{%- endif %}
