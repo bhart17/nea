@@ -24,21 +24,19 @@
 	{%- endif %}
 	{%- if data.type == "text" %}
 		<div class="text center">
-			<p style="{% for key, value in data.style.items() -%}
-						{{key}}: {{value}};
-					 {%- endfor %}">{{data.content}}</p>
+			<p {{ add_style(data.style) }}>{{ data.content }}</p>
 		</div>
 	{%- endif %}
 	{%- if data.type == "scrolling horizontal" %}
 		<div class="scrolling-horizontal">
-  			<div class="marquee-horizontal">{# style="animation: marquee-horizontal {{data.settings['speed']}}s linear infinite;"#}
-					 {{ make_text((data.content), data.style)}}
+  			<div class="marquee-horizontal">
+					 {{ make_text((data.content), data.style) }}
 		  	</div>
 		</div>
 	{%- endif %}
 	{%- if data.type == "scrolling vertical" %}
 		<div class="scrolling-vertical">
-  			<div class="marquee-vertical">{# style="animation: marquee-vertical {{data.settings['speed']}}s linear infinite;"#}
+  			<div class="marquee-vertical">
 					 {{ make_text(data.content, data.style) }}
 		  	</div>
 		</div>
@@ -60,5 +58,9 @@
 {%- endmacro -%}
 
 {%- macro make_text(content, style) -%}
-<p style="{% for key, value in style.items() %}{{key}}: {{value}};{% endfor %}">{{content}}</p>
+<p {{ add_style(style) }}>{{ content }}</p>
+{%- endmacro -%}
+
+{%- macro add_style(attributes) -%}
+style="{% for key, value in attributes.items() %}{{key}}: {{value}};{% endfor %}"
 {%- endmacro -%}

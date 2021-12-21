@@ -1,44 +1,48 @@
-document.addEventListener('DOMContentLoaded', () => { main() });
-
 function main() {
-    setup()
-    refresh()
-}
-
-function refresh() {
-    progress_slides()
-    setTimeout(refresh, parseInt("{{ contents }}"))
+    setup();
+    refresh();
 }
 
 function setup() {
+    init_marquees();
+}
+
+function refresh() {
+    progress_slides();
+    setTimeout(refresh, parseInt("{{ contents }}"));
+}
+
+function init_marquees() {
     const speed = 0.5;
+
     const vertical = document.getElementsByClassName("scrolling-vertical");
     for (const current of vertical) {
+        const marquee = current.firstElementChild;
         const copies = Math.max(Math.round(2 / (current.querySelector("p").offsetHeight / current.offsetHeight)), 2);
         for (var i = 0; i < copies - 1; i++) {
-            current.firstElementChild.appendChild(current.querySelector("p").cloneNode(deep = true));
+            marquee.appendChild(current.querySelector("p").cloneNode(deep = true));
         }
-        current.firstElementChild.animate([
+        marquee.animate([
             { transform: "translateY(0)" },
             { transform: `translateY(-${100 / copies}%)` }
         ], {
-            duration: current.firstElementChild.offsetHeight / speed,
+            duration: marquee.offsetHeight / speed,
             iterations: Infinity
         });
-        //console.log(current.firstElementChild);
-        //console.log(current.firstElementChild.offsetWidth / speed);
-    } // s = d / t
+    }
+
     const horizontal = document.getElementsByClassName("scrolling-horizontal");
     for (const current of horizontal) {
+        const marquee = current.firstElementChild;
         const copies = Math.max(Math.round(2 / (current.querySelector("p").offsetWidth / current.offsetWidth)), 2);
         for (var i = 0; i < copies - 1; i++) {
-            current.firstElementChild.appendChild(current.querySelector("p").cloneNode(deep = true));
+            marquee.appendChild(current.querySelector("p").cloneNode(deep = true));
         }
-        current.firstElementChild.animate([
+        marquee.animate([
             { transform: "translateX(0)" },
             { transform: `translateX(-${100 / copies}%)` }
         ], {
-            duration: current.firstElementChild.offsetWidth / speed,
+            duration: marquee.offsetWidth / speed,
             iterations: Infinity
         });
     }
@@ -56,5 +60,6 @@ function progress_slides() {
             }
         }
     }
-    //setTimeout(progress_slides, {{ contents }});
 }
+
+document.addEventListener('DOMContentLoaded', () => { main() });

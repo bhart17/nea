@@ -77,14 +77,15 @@ img {
     animation: fade 1.5s cubic-bezier(0.86, 0.17, 0.54, 0.69);
 }
 
-@keyframes marquee-horizontal {
+
+/*@keyframes marquee-horizontal {
     from {
         transform: translateX(0);
     }
     to {
         transform: translateX(-50%);
     }
-}
+}*/
 
 @keyframes fade {
     from {
@@ -108,14 +109,15 @@ img {
     text-align: center;
 }
 
-@keyframes marquee-vertical {
+
+/*@keyframes marquee-vertical {
     from {
         transform: translateY(0%);
     }
     to {
         transform: translateY(-50%);
     }
-}
+}*/
 
 p {
     display: inline-block;
