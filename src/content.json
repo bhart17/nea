@@ -13,7 +13,8 @@
                                 "font-family": "Arial",
                                 "font-size": "30px",
                                 "color": "blue"
-                            }
+                            },
+                            "container_style": {}
                         }]
                     },
                     {
@@ -21,11 +22,17 @@
                         "size": 0.5,
                         "content": [{
                             "type": "scrolling vertical",
-                            "content": "A<br>B<br>C<br>D<br>E<br>F<br>G<br>",
+                            "content": "This is some sample text to show on the screen.",
                             "style": {
                                 "font-family": "Arial",
-                                "font-size": "30px",
+                                "font-size": "50px",
                                 "color": "blue"
+                            },
+                            "container_style": {
+                                "background-image": "url('../tom.jpg')",
+                                "background-repeat": "no-repeat",
+                                "background-size": "contain",
+                                "background-position": "center"
                             }
                         }]
                     }
@@ -36,23 +43,35 @@
                 "size": 0.3333333333333333,
                 "content": [{
                     "type": "slideshow",
-                    "content": [
-                        "tom.jpg",
-                        "tom.jpg",
-                        "tom.jpg"
-                    ]
+                    "content": [{
+                            "type": "image",
+                            "content": "../tom.jpg",
+                            "time": 3000
+                        },
+                        {
+                            "type": "video",
+                            "content": "https://www.w3schools.com/tags/movie.mp4"
+                        },
+                        {
+                            "type": "image",
+                            "content": "../tom.jpg",
+                            "time": 3000
+                        }
+                    ],
+                    "style": {},
+                    "container_style": {}
                 }]
             },
             {
                 "type": "col",
                 "size": 0.3333333333333333,
                 "content": [{
-                    "type": "slideshow",
-                    "content": [
-                        "tom.jpg",
-                        "tom.jpg",
-                        "tom.jpg"
-                    ]
+                    "type": "video",
+                    "content": "https://www.w3schools.com/tags/movie.mp4",
+                    "style": {},
+                    "container_style": {
+                        "background-color": "#d94ea4"
+                    }
                 }]
             }
         ]
