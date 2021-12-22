@@ -44,7 +44,7 @@
 				{%- endif %}
 				{%- if item.type == "video" %}
 					<div class="slide fade" {% if loop.first %}style="display: block;"{% endif %}>
-				  		<video muted>
+				  		<video>
 							<source src={{ item.content }}>
 						</video>
 					</div>
@@ -53,7 +53,7 @@
 		</div>
 	{%- endif %}
 	{%- if data.type == "video" %}
-		<video autoplay muted loop>
+		<video loop>
 			<source src={{ data.content }}>
 		</video>
 	{% endif %}

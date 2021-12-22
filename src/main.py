@@ -17,7 +17,10 @@ def main() -> None:
     eel.init(SERVE_PATH)
 
     eel.start('cache/index.html',
-              cmdline_args=["--start-fullscreen"],
+              cmdline_args=[
+                  "--start-fullscreen",
+                  "--autoplay-policy=no-user-gesture-required"
+              ],
               block=False)
 
     while True:
