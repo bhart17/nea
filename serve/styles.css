@@ -93,16 +93,6 @@ video {
     animation: fade 1.5s cubic-bezier(0.86, 0.17, 0.54, 0.69);
 }
 
-
-/*@keyframes marquee-horizontal {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(-50%);
-    }
-}*/
-
 @keyframes fade {
     from {
         opacity: 0.5;
@@ -114,7 +104,6 @@ video {
 
 .scrolling-vertical {
     overflow: hidden;
-    /* position: absolute; */
     height: 100%;
     width: 100%;
     left: 50%;
@@ -125,18 +114,3 @@ video {
     display: inline-block;
     text-align: center;
 }
-
-
-/*@keyframes marquee-vertical {
-    from {
-        transform: translateY(0%);
-    }
-    to {
-        transform: translateY(-50%);
-    }
-}*/
-
-
-/* .scrolling-vertical p {
-    display: inline;
-} */

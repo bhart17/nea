@@ -5,11 +5,11 @@ function main() {
 }
 
 function setup() {
-    init_marquees();
-    spawn_slideshows();
+    init_marquees(0.5);
+    init_slideshows();
 }
 
-function spawn_slideshows() {
+function init_slideshows() {
     const slideshows = document.getElementsByClassName("slideshow") as HTMLCollectionOf<HTMLElement>;
     for (const slideshow of slideshows) {
         const videos = slideshow.querySelectorAll("video");
@@ -43,42 +43,62 @@ function progress_slideshow(slideshow: HTMLElement) {
     }
 }
 
-function init_marquees() {
-    const speed = 0.5;
+// function init_marquees() {
+//     const speed = 0.5;
 
-    const vertical = document.getElementsByClassName("scrolling-vertical") as HTMLCollectionOf<HTMLElement>;
-    for (const current of vertical) {
-        const marquee = current.firstElementChild as HTMLElement;
-        const copies = Math.max(Math.round(2 / (current.querySelector("p").offsetHeight / current.offsetHeight)), 2);
-        for (var i = 0; i < copies - 1; i++) {
-            marquee.appendChild(current.querySelector("p").cloneNode(true));
-        }
-        marquee.animate([
-            { transform: "translateY(0)" },
-            { transform: `translateY(-${100 / copies}%)` }
-        ], {
-            duration: marquee.offsetHeight / speed,
-            iterations: Infinity
-        });
-    }
+//     const vertical = document.getElementsByClassName("scrolling-vertical") as HTMLCollectionOf<HTMLElement>;
+//     for (const current of vertical) {
+//         const marquee = current.firstElementChild as HTMLElement;
+//         const copies = Math.max(Math.round(2 / (current.querySelector("p").offsetHeight / current.offsetHeight)), 2);
+//         for (var i = 0; i < copies - 1; i++) {
+//             marquee.appendChild(current.querySelector("p").cloneNode(true));
+//         }
+//         marquee.animate([
+//             { transform: "translateY(0)" },
+//             { transform: `translateY(-${100 / copies}%)` }
+//         ], {
+//             duration: marquee.offsetHeight / speed,
+//             iterations: Infinity
+//         });
+//     }
 
-    const horizontal = document.getElementsByClassName("scrolling-horizontal") as HTMLCollectionOf<HTMLElement>;
-    for (const current of horizontal) {
-        const marquee = current.firstElementChild as HTMLElement;
-        const copies = Math.max(Math.round(2 / (current.querySelector("p").offsetWidth / current.offsetWidth)), 2);
-        for (var i = 0; i < copies - 1; i++) {
-            marquee.appendChild(current.querySelector("p").cloneNode(true));
+//     const horizontal = document.getElementsByClassName("scrolling-horizontal") as HTMLCollectionOf<HTMLElement>;
+//     for (const current of horizontal) {
+//         const marquee = current.firstElementChild as HTMLElement;
+//         const copies = Math.max(Math.round(2 / (current.querySelector("p").offsetWidth / current.offsetWidth)), 2);
+//         for (var i = 0; i < copies - 1; i++) {
+//             marquee.appendChild(current.querySelector("p").cloneNode(true));
+//         }
+//         marquee.animate([
+//             { transform: "translateX(0)" },
+//             { transform: `translateX(-${100 / copies}%)` }
+//         ], {
+//             duration: marquee.offsetWidth / speed,
+//             iterations: Infinity
+//         });
+//     }
+// }
+
+function init_marquees(speed: number) {
+    const marquees = [["vertical", "Height", "Y"], ["horizontal", "Width", "X"]];
+    for (const type of marquees) {
+        const scrolling = document.getElementsByClassName(`scrolling-${type[0]}`) as HTMLCollectionOf<HTMLElement>;
+        for (const current of scrolling) {
+            const marquee = current.firstElementChild as HTMLElement;
+            const copies = Math.max(Math.round(2 / (current.querySelector("p")[`offset${type[1]}`] / current[`offset${type[1]}`])), 2);
+            for (var i = 0; i < copies - 1; i++) {
+                marquee.appendChild(current.querySelector("p").cloneNode(true));
+            }
+            marquee.animate([
+                { transform: `translate${type[2]}(0)` },
+                { transform: `translate${type[2]}(-${100 / copies}%)` }
+            ], {
+                duration: marquee[`offset${type[1]}`] / speed,
+                iterations: Infinity
+            });
         }
-        marquee.animate([
-            { transform: "translateX(0)" },
-            { transform: `translateX(-${100 / copies}%)` }
-        ], {
-            duration: marquee.offsetWidth / speed,
-            iterations: Infinity
-        });
     }
 }
-
 
 function refresh_page() {
     location.reload();
