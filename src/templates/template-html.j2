@@ -13,12 +13,12 @@
 {%- endmacro -%}
 
 {%- macro make_content(data) %}
-	<div class="container" {{ make_style(data.container_style) }}>
+	<div class="container fill" {{ make_style(data.container_style) }}>
 	{%- if data.type == "colour" %}
-		<div class="colour-fill" {{ make_style(data.style) }}></div>
+		<div class="fill" {{ make_style(data.style) }}></div>
 	{%- endif %}
 	{%- if data.type == "text" %}
-		<div class="text center">
+		<div class="text flex-center fill">
 			{{ make_text(data.content, data.style) }}
 		</div>
 	{%- endif %}
@@ -30,21 +30,21 @@
 		</div>
 	{%- endif %}
 	{%- if data.type == "image" %}
-		<div class="image">
+		<div class="image center">
 			<img src="../{{ data.content }}">
 		</div>
 	{%- endif %}
 	{%- if data.type == "slideshow" %}
-		<div class="slideshow">
+		<div class="slideshow fill">
 			{%- for item in data.content %}
 				{%- if item.type == "image" %}
-					<div class="slide fade" data-time={{ item.time }} {% if loop.first %}style="display: block;"{% endif %}>
-				  		<img src={{ item.content }}>
+					<div class="slide fade fill" data-time={{ item.time }} {% if loop.first %}style="display: block;"{% endif %}>
+				  		<img src={{ item.content }} class="center">
 					</div>
 				{%- endif %}
 				{%- if item.type == "video" %}
-					<div class="slide fade" {% if loop.first %}style="display: block;"{% endif %}>
-				  		<video>
+					<div class="slide fade fill" {% if loop.first %}style="display: block;"{% endif %}>
+				  		<video class="center fill">
 							<source src={{ item.content }}>
 						</video>
 					</div>
@@ -53,7 +53,7 @@
 		</div>
 	{%- endif %}
 	{%- if data.type == "video" %}
-		<video autoplay loop>
+		<video autoplay loop class="center fill">
 			<source src={{ data.content }}>
 		</video>
 	{% endif %}

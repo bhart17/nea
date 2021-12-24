@@ -43,42 +43,6 @@ function progress_slideshow(slideshow: HTMLElement) {
     }
 }
 
-// function init_marquees() {
-//     const speed = 0.5;
-
-//     const vertical = document.getElementsByClassName("scrolling-vertical") as HTMLCollectionOf<HTMLElement>;
-//     for (const current of vertical) {
-//         const marquee = current.firstElementChild as HTMLElement;
-//         const copies = Math.max(Math.round(2 / (current.querySelector("p").offsetHeight / current.offsetHeight)), 2);
-//         for (var i = 0; i < copies - 1; i++) {
-//             marquee.appendChild(current.querySelector("p").cloneNode(true));
-//         }
-//         marquee.animate([
-//             { transform: "translateY(0)" },
-//             { transform: `translateY(-${100 / copies}%)` }
-//         ], {
-//             duration: marquee.offsetHeight / speed,
-//             iterations: Infinity
-//         });
-//     }
-
-//     const horizontal = document.getElementsByClassName("scrolling-horizontal") as HTMLCollectionOf<HTMLElement>;
-//     for (const current of horizontal) {
-//         const marquee = current.firstElementChild as HTMLElement;
-//         const copies = Math.max(Math.round(2 / (current.querySelector("p").offsetWidth / current.offsetWidth)), 2);
-//         for (var i = 0; i < copies - 1; i++) {
-//             marquee.appendChild(current.querySelector("p").cloneNode(true));
-//         }
-//         marquee.animate([
-//             { transform: "translateX(0)" },
-//             { transform: `translateX(-${100 / copies}%)` }
-//         ], {
-//             duration: marquee.offsetWidth / speed,
-//             iterations: Infinity
-//         });
-//     }
-// }
-
 function init_marquees(speed: number) {
     const marquees = [["vertical", "Height", "Y"], ["horizontal", "Width", "X"]];
     for (const type of marquees) {
