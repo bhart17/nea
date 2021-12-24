@@ -1,6 +1,7 @@
+var eel: any;
+
 function main() {
     setup();
-    // refresh();
 }
 
 function setup() {
@@ -8,19 +9,14 @@ function setup() {
     spawn_slideshows();
 }
 
-// function refresh() {
-//     progress_slides();
-//     setTimeout(refresh, parseInt("{{ contents }}"));
-// }
-
 function spawn_slideshows() {
-    const slideshows = document.getElementsByClassName("slideshow");
+    const slideshows = document.getElementsByClassName("slideshow") as HTMLCollectionOf<HTMLElement>;
     for (const slideshow of slideshows) {
         const videos = slideshow.querySelectorAll("video");
         for (const video of videos) {
             video.addEventListener("ended", () => { progress_slideshow(slideshow); });
         }
-        const first = slideshow.firstElementChild;
+        const first = slideshow.firstElementChild as HTMLElement;
         if (first.querySelector("img")) {
             setTimeout(progress_slideshow, parseInt(first.dataset.time), slideshow);
         } else {
@@ -29,16 +25,18 @@ function spawn_slideshows() {
     }
 }
 
-function progress_slideshow(slideshow) {
+function progress_slideshow(slideshow: HTMLElement) {
     const slides = slideshow.children;
     for (var slide = 0; slide < slides.length; slide++) {
-        if (slides[slide].style.display === "block") {
-            slides[slide].style.display = "none";
-            slides[(slide + 1) % slides.length].style.display = "block";
-            if (slides[(slide + 1) % slides.length].querySelector("img")) {
-                setTimeout(progress_slideshow, parseInt(slides[(slide + 1) % slides.length].dataset.time), slideshow);
+        const current = slides[slide] as HTMLElement;
+        const next = slides[(slide + 1) % slides.length] as HTMLElement;
+        if (current.style.display === "block") {
+            current.style.display = "none";
+            next.style.display = "block";
+            if (next.querySelector("img")) {
+                setTimeout(progress_slideshow, parseInt(next.dataset.time), slideshow);
             } else {
-                slides[(slide + 1) % slides.length].querySelector("video").play();
+                next.querySelector("video").play();
             }
             break;
         }
@@ -48,12 +46,12 @@ function progress_slideshow(slideshow) {
 function init_marquees() {
     const speed = 0.5;
 
-    const vertical = document.getElementsByClassName("scrolling-vertical");
+    const vertical = document.getElementsByClassName("scrolling-vertical") as HTMLCollectionOf<HTMLElement>;
     for (const current of vertical) {
-        const marquee = current.firstElementChild;
+        const marquee = current.firstElementChild as HTMLElement;
         const copies = Math.max(Math.round(2 / (current.querySelector("p").offsetHeight / current.offsetHeight)), 2);
         for (var i = 0; i < copies - 1; i++) {
-            marquee.appendChild(current.querySelector("p").cloneNode(deep = true));
+            marquee.appendChild(current.querySelector("p").cloneNode(true));
         }
         marquee.animate([
             { transform: "translateY(0)" },
@@ -64,12 +62,12 @@ function init_marquees() {
         });
     }
 
-    const horizontal = document.getElementsByClassName("scrolling-horizontal");
+    const horizontal = document.getElementsByClassName("scrolling-horizontal") as HTMLCollectionOf<HTMLElement>;
     for (const current of horizontal) {
-        const marquee = current.firstElementChild;
+        const marquee = current.firstElementChild as HTMLElement;
         const copies = Math.max(Math.round(2 / (current.querySelector("p").offsetWidth / current.offsetWidth)), 2);
         for (var i = 0; i < copies - 1; i++) {
-            marquee.appendChild(current.querySelector("p").cloneNode(deep = true));
+            marquee.appendChild(current.querySelector("p").cloneNode(true));
         }
         marquee.animate([
             { transform: "translateX(0)" },
@@ -80,20 +78,6 @@ function init_marquees() {
         });
     }
 }
-
-// function progress_slides() {
-//     const containers = document.getElementsByClassName("slideshow");
-//     for (const container of containers) {
-//         const current = container.children;
-//         for (var slide_index = 0; slide_index < current.length; slide_index++) {
-//             if (current[slide_index].style.display === "block") {
-//                 current[(slide_index + 1) % current.length].style.display = "block";
-//                 current[slide_index].style.display = "none";
-//                 break;
-//             }
-//         }
-//     }
-// }
 
 
 function refresh_page() {
