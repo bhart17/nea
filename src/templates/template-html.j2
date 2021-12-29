@@ -2,8 +2,8 @@
 
 {%- macro make_div(data) %}
 	{%- for item in data %}
-		{%- if item.type in ("row","col") %}
-			<div class={{ item.type }} {{ row_col_style(item) }}>
+		{%- if item.type in ("row","column") %}
+			<div class={{ item.type }} {{ grid_style(item.content) }}>
 				{{ make_div(item.content) }}
 			</div>
 		{%- else %}
@@ -70,6 +70,12 @@
 	{%- endif -%}
 {%- endmacro -%}
 
-{%- macro row_col_style(item) -%}
-	style="{%- if item.type == 'row' -%}height{%- else -%}width{%- endif -%}: {{ item.size*100 }}%"
+{# {%- macro row_col_style(item) -%}
+	style="{%- if item.type == 'row' -%}height{%- else -%}width{%- endif -%}: {{ item.size*100 }}%;"
+{%- endmacro -%} #}
+
+{%- macro grid_style(content) -%}
+{%- if content[0].type in ("row", "column") -%}
+style="grid-template-{{ content[0].type }}s:{% for i in content %} {{ i.size }}fr{% endfor %};"
+{%- endif -%}
 {%- endmacro -%}

@@ -28,11 +28,11 @@ def main() -> None:
 
 
 def load_content() -> dict:
-    with open("src/content.json", "r") as file:
+    with open("src/content2.json", "r") as file:
         return json.load(file)
 
 
-def generate(env, fp, tp, contents) -> None:
+def generate(env: Environment, fp: str, tp: str, contents: list) -> None:
     template = env.get_template(tp)
     with open(fp, "w") as file:
         file.write(template.render(contents=contents))
