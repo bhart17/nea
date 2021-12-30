@@ -29,7 +29,7 @@
                                 "color": "blue"
                             },
                             "container_style": {
-                                "background-image": "url('../tom.jpg')",
+                                "background-image": "url('https://picsum.photos/800/600')",
                                 "background-repeat": "no-repeat",
                                 "background-size": "contain",
                                 "background-position": "center"
@@ -45,16 +45,16 @@
                     "type": "slideshow",
                     "content": [{
                             "type": "image",
-                            "content": "../tom.jpg",
+                            "content": "https://picsum.photos/800/600",
                             "time": 3000
                         },
                         {
                             "type": "video",
-                            "content": "https://www.w3schools.com/tags/movie.mp4"
+                            "content": "https://archive.org/download/electricsheep-flock-247-62500-7/00247%3D62517%3D62283%3D62016.mp4"
                         },
                         {
                             "type": "image",
-                            "content": "../tom.jpg",
+                            "content": "https://picsum.photos/800/600",
                             "time": 3000
                         }
                     ],

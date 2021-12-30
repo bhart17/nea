@@ -31,7 +31,7 @@
 	{%- endif %}
 	{%- if data.type == "image" %}
 		<div class="image center">
-			<img src="../{{ data.content }}">
+			<img src={{ data.content }} class="fill">
 		</div>
 	{%- endif %}
 	{%- if data.type == "slideshow" %}
@@ -39,7 +39,7 @@
 			{%- for item in data.content %}
 				{%- if item.type == "image" %}
 					<div class="slide fade fill" data-time={{ item.time }} {% if loop.first %}style="display: block;"{% endif %}>
-				  		<img src={{ item.content }} class="center">
+				  		<img src={{ item.content }} class="center fill">
 					</div>
 				{%- endif %}
 				{%- if item.type == "video" %}
