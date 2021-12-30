@@ -2,6 +2,7 @@ var eel: any;
 
 function main() {
     setup();
+    //fetch_rss("https://www.telegraph.co.uk/rss.xml");
 }
 
 function setup() {
@@ -63,6 +64,13 @@ function init_marquees(speed: number) {
         }
     }
 }
+
+// function fetch_rss(url: string) {
+//     fetch(url, { mode: "no-cors" })
+//         .then(response => response.text())
+//         .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
+//         .then(data => console.log(data));
+// }
 
 function refresh_page() {
     location.reload();
