@@ -1,6 +1,7 @@
 import eel
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 import json
+from rss_parser import RssFeed, RssStatus
 
 
 def main() -> None:
@@ -37,6 +38,17 @@ def generate(env: Environment, fp: str, tp: str, contents: list) -> None:
     template = env.get_template(tp)
     with open(fp, "w") as file:
         file.write(template.render(contents=contents))
+
+
+@eel.expose
+def fetch_rss(url: str, tags: list[str], max_items: int = -1):
+    rss = RssFeed(url)
+    if (status := rss.get_status()) == RssStatus.GOOD:
+        feed = rss.get_items(tags, max_items)
+        if feed != RssStatus.INVALID_TAG:
+            return feed
+        status = feed
+    return [status.value]
 
 
 if __name__ == "__main__":
