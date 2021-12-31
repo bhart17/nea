@@ -66,13 +66,32 @@
                 "type": "column",
                 "size": 1,
                 "content": [{
-                    "type": "video",
-                    "content": "https://www.w3schools.com/tags/movie.mp4",
-                    "style": {},
-                    "container_style": {
-                        "background-color": "#d94ea4"
+                        "type": "row",
+                        "size": 1,
+                        "content": [{
+                            "type": "clock",
+                            "content": "",
+                            "style": {
+                                "font-family": "Arial",
+                                "font-size": "30px",
+                                "color": "blue"
+                            },
+                            "container_style": {}
+                        }]
+                    },
+                    {
+                        "type": "row",
+                        "size": 1,
+                        "content": [{
+                            "type": "video",
+                            "content": "https://www.w3schools.com/tags/movie.mp4",
+                            "style": {},
+                            "container_style": {
+                                "background-color": "#d94ea4"
+                            }
+                        }]
                     }
-                }]
+                ]
             }
         ]
     ]

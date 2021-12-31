@@ -2,12 +2,12 @@ var eel: any;
 
 function main() {
     setup();
-    //fetch_rss("https://www.telegraph.co.uk/rss.xml");
 }
 
 function setup() {
     init_marquees(0.5);
     init_slideshows();
+    refresh_clocks();
 }
 
 function init_slideshows() {
@@ -65,12 +65,15 @@ function init_marquees(speed: number) {
     }
 }
 
-// function fetch_rss(url: string) {
-//     fetch(url, { mode: "no-cors" })
-//         .then(response => response.text())
-//         .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
-//         .then(data => console.log(data));
-// }
+function refresh_clocks() {
+    const time = new Date().toTimeString().substring(0, 8);
+    const clocks = document.getElementsByClassName("clock") as HTMLCollectionOf<HTMLElement>;
+    for (const clock of clocks) {
+        const clock_text = clock.firstElementChild as HTMLElement;
+        clock_text.innerText = time;
+    }
+    setTimeout(refresh_clocks, 1000);
+}
 
 function refresh_page() {
     location.reload();

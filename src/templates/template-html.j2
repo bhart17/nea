@@ -44,18 +44,19 @@
 				{%- endif %}
 				{%- if item.type == "video" %}
 					<div class="slide fade fill" {% if loop.first %}style="display: block;"{% endif %}>
-				  		<video class="center fill">
-							<source src={{ item.content }}>
-						</video>
+				  		<video src={{ item.content }} class="center fill"></video>
 					</div>
 				{%- endif %}
 			{%- endfor %}
 		</div>
 	{%- endif %}
 	{%- if data.type == "video" %}
-		<video autoplay loop class="center fill">
-			<source src={{ data.content }}>
-		</video>
+		<video src={{ data.content }} autoplay loop class="center fill"></video>
+	{% endif %}
+	{%- if data.type == "clock" %}
+		<div class="clock flex-center fill">
+			{{ make_text("", data.style) }}
+		</div>
 	{% endif %}
 	</div>
 {%- endmacro -%}
@@ -70,12 +71,8 @@
 	{%- endif -%}
 {%- endmacro -%}
 
-{# {%- macro row_col_style(item) -%}
-	style="{%- if item.type == 'row' -%}height{%- else -%}width{%- endif -%}: {{ item.size*100 }}%;"
-{%- endmacro -%} #}
-
 {%- macro grid_style(content) -%}
-{%- if content[0].type in ("row", "column") -%}
-style="grid-template-{{ content[0].type }}s:{% for i in content %} {{ i.size }}fr{% endfor %};"
-{%- endif -%}
+	{%- if content[0].type in ("row", "column") -%}
+		style="grid-template-{{ content[0].type }}s:{% for i in content %} {{ i.size }}fr{% endfor %};"
+	{%- endif -%}
 {%- endmacro -%}
