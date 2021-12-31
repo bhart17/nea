@@ -19,13 +19,13 @@
 	{%- endif %}
 	{%- if data.type == "text" %}
 		<div class="text flex-center fill">
-			{{ make_text(data.content, data.style) }}
+			{{ source_text(data.content, data.style) }}
 		</div>
 	{%- endif %}
 	{%- if data.type in ("scrolling horizontal", "scrolling vertical") %}
 		<div class="scrolling-{{ data.type.split()[1] }}">
 			<div class="marquee-{{ data.type.split()[1] }}">
-				{{ make_text(data.content, data.style) }}
+				{{ source_text(data.content, data.style) }}
 			</div>
 		</div>
 	{%- endif %}
@@ -59,6 +59,19 @@
 		</div>
 	{% endif %}
 	</div>
+{%- endmacro -%}
+
+{%- macro source_text(data, style) -%}
+	{%- if data.type == "text" %}
+		{{ make_text(data.content, style) }}
+	{%- endif %}
+	{%- if data.type == "rss" %}
+		{{ make_rss(data, style) }}
+	{%- endif %}
+{%- endmacro -%}
+
+{%- macro make_rss(data, style) -%}
+	<p class="rss" {{ make_style(style) }} data-url={{ data.url }} data-length={{ data.length }} data-format={{ data.format }}></p>
 {%- endmacro -%}
 
 {%- macro make_text(content, style) -%}

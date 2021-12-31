@@ -10,6 +10,24 @@ function setup() {
     refresh_clocks();
 }
 
+function init_rss_feeds() {
+    const regex = /(?:\${([^$]*)}([^$]*))/g
+    const rss_feeds = document.getElementsByClassName("rss") as HTMLCollectionOf<HTMLElement>;
+    for (const rss_feed of rss_feeds) {
+        var tags = [] as string[];
+        var spacers = [] as string[];
+        for (const match of [...rss_feed.dataset.format.matchAll(regex)]) {
+            tags.push(match[1]);
+        }
+        const rss = eel.fetch_rss(rss_feed.dataset.url, tags, rss_feed.dataset.length)();
+        if (typeof rss[0] == "string") {
+            for (var i = 0; i < tags.length; i++) {
+
+            }
+        }
+    }
+}
+
 function init_slideshows() {
     const slideshows = document.getElementsByClassName("slideshow") as HTMLCollectionOf<HTMLElement>;
     for (const slideshow of slideshows) {
@@ -50,17 +68,19 @@ function init_marquees(speed: number) {
         const scrolling = document.getElementsByClassName(`scrolling-${type[0]}`) as HTMLCollectionOf<HTMLElement>;
         for (const current of scrolling) {
             const marquee = current.firstElementChild as HTMLElement;
-            const copies = Math.max(Math.round(2 / (current.querySelector("p")[`offset${type[1]}`] / current[`offset${type[1]}`])), 2);
-            for (var i = 0; i < copies - 1; i++) {
-                marquee.appendChild(current.querySelector("p").cloneNode(true));
+            if (current.querySelector("p")[`offset${type[1]}`] > 0) {
+                const copies = Math.max(Math.round(2 / (current.querySelector("p")[`offset${type[1]}`] / current[`offset${type[1]}`])), 2);
+                for (var i = 0; i < copies - 1; i++) {
+                    marquee.appendChild(current.querySelector("p").cloneNode(true));
+                }
+                marquee.animate([
+                    { transform: `translate${type[2]}(0)` },
+                    { transform: `translate${type[2]}(-${100 / copies}%)` }
+                ], {
+                    duration: marquee[`offset${type[1]}`] / speed,
+                    iterations: Infinity
+                });
             }
-            marquee.animate([
-                { transform: `translate${type[2]}(0)` },
-                { transform: `translate${type[2]}(-${100 / copies}%)` }
-            ], {
-                duration: marquee[`offset${type[1]}`] / speed,
-                iterations: Infinity
-            });
         }
     }
 }
