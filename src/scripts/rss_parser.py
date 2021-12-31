@@ -33,7 +33,7 @@ class RssFeed:
                     return response
         return None
 
-    def get_items(self, tags: list[str] = [], max_items: int = -1) -> tuple:
+    def get_items(self, tags: list[str] = [], max_items: int = -1) -> list:
         if max_items != -1 and len(self.__items) > max_items:
             items = self.__items[:max_items]
         else:

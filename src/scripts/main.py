@@ -41,13 +41,13 @@ def generate(env: Environment, fp: str, tp: str, contents: list) -> None:
 
 
 @eel.expose
-def fetch_rss(url: str, tags: list[str], max_items: int = -1):
+def fetch_rss(url: str, tags: list[str], max_items: int) -> list:
     rss = RssFeed(url)
     if (status := rss.get_status()) == RssStatus.GOOD:
         feed = rss.get_items(tags, max_items)
         if feed != RssStatus.INVALID_TAG:
             return feed
-        status = feed
+        status = RssStatus.INVALID_TAG
     return [status.value]
 
 
