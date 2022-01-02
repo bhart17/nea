@@ -23,7 +23,7 @@
 		</div>
 	{%- endif %}
 	{%- if data.type in ("scrolling horizontal", "scrolling vertical") %}
-		<div class="scrolling-{{ data.type.split()[1] }}">
+		<div class="scrolling-{{ data.type.split()[1] }}" data-time={{ data.time }}>
 			<div class="marquee-{{ data.type.split()[1] }}">
 				{{ source_text(data.content, data.style) }}
 			</div>
@@ -71,7 +71,7 @@
 {%- endmacro -%}
 
 {%- macro make_rss(data, style) -%}
-	<p class="rss" {{ make_style(style) }} data-url={{ data.url }} data-length={{ data.length }} data-format={{ data.format }}></p>
+	<p class="rss" {{ make_style(style) }} data-url={{ data.url }} data-length={{ data.length }} data-format="{{ data.format }}"></p>
 {%- endmacro -%}
 
 {%- macro make_text(content, style) -%}

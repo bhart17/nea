@@ -10,7 +10,7 @@
                             "type": "scrolling horizontal",
                             "content": {
                                 "type": "rss",
-                                "format": "{title} - {description}",
+                                "format": "${title} - ${description} - ",
                                 "length": 5,
                                 "url": "http://feeds.bbci.co.uk/news/rss.xml"
                             },
@@ -19,7 +19,8 @@
                                 "font-size": "30px",
                                 "color": "blue"
                             },
-                            "container_style": {}
+                            "container_style": {},
+                            "time": 0.5
                         }]
                     },
                     {
@@ -41,7 +42,8 @@
                                 "background-repeat": "no-repeat",
                                 "background-size": "contain",
                                 "background-position": "center"
-                            }
+                            },
+                            "time": 0.5
                         }]
                     }
                 ]
