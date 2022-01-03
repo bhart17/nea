@@ -54,7 +54,7 @@
 		<video src={{ data.content }} autoplay loop class="center fill"></video>
 	{% endif %}
 	{%- if data.type == "clock" %}
-		<div class="clock flex-center fill">
+		<div class="clock flex-center fill" data-format="{{ data.format }}">
 			{{ make_text("", data.style) }}
 		</div>
 	{% endif %}

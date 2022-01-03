@@ -11,22 +11,23 @@ function setup(): void {
     init_slideshows();
 }
 
+function match_template(template: string): { tags: string[]; spacers: string[] } {
+    const regex = /\${([^$]+)}([^$]*)/g;
+    const tags = [...template.matchAll(regex)].map(match => match[1]);
+    const spacers = [...template.matchAll(regex)].map(match => match[2]);
+    return { tags, spacers };
+}
+
 function init_rss_feeds(): void {
-    const regex = /\${([^$]+)}([^$]*)/g
     const rss_feeds = document.getElementsByClassName("rss") as HTMLCollectionOf<HTMLElement>;
     for (const rss_feed of rss_feeds) {
-        var tags = [] as string[];
-        var spacers = [] as string[];
-        for (const match of [...rss_feed.dataset.format.matchAll(regex)]) {
-            tags.push(match[1]);
-            spacers.push(match[2]);
-        }
-        eel.fetch_rss(rss_feed.dataset.url, tags, parseInt(rss_feed.dataset.length))().then((rss: string[] | object[]) => {
+        const matches = match_template(rss_feed.dataset.format);
+        eel.fetch_rss(rss_feed.dataset.url, matches.tags, parseInt(rss_feed.dataset.length))().then((rss: string[] | object[]) => {
             if (typeof rss[0] != "string") {
-                var output_string = "";
+                let output_string = "";
                 for (const item of rss) {
-                    for (var i = 0; i < tags.length; i++) {
-                        output_string += `${item[tags[i]]}${spacers[i]}`;
+                    for (let i = 0; i < matches.tags.length; i++) {
+                        output_string += `${item[matches.tags[i]]}${matches.spacers[i]}`;
                     }
                 }
                 rss_feed.innerText = output_string;
@@ -81,33 +82,6 @@ function init_marquees(): void {
     }
 }
 
-// function init_marquees(): void {
-//     const marquees = [["vertical", "Height", "Y"], ["horizontal", "Width", "X"]];
-//     for (const type of marquees) {
-//         const scrolling = document.getElementsByClassName(`scrolling-${type[0]}`) as HTMLCollectionOf<HTMLElement>;
-//         for (const current of scrolling) {
-//             if (!current.getElementsByClassName("rss").length) {
-//                 const marquee = current.firstElementChild as HTMLElement;
-//                 if (current.querySelector("p")[`offset${type[1]}`] > 0) {
-//                     //const copies = Math.max(Math.round(2 / (current.querySelector("p")[`offset${type[1]}`] / current[`offset${type[1]}`])), 2);
-//                     const copies = Math.max(Math.ceil(current[`offset${type[1]}`] / current.querySelector("p")[`offset${type[1]}`]) + 1, 2);
-//                     for (var i = 0; i < copies - 1; i++) {
-//                         marquee.appendChild(current.querySelector("p").cloneNode(true));
-//                     }
-//                     //console.log(parseFloat(current.dataset.time));
-//                     marquee.animate([
-//                         { transform: `translate${type[2]}(0)` },
-//                         { transform: `translate${type[2]}(-${100 / copies}%)` }
-//                     ], {
-//                         duration: marquee[`offset${type[1]}`] / parseFloat(current.dataset.time),
-//                         iterations: Infinity
-//                     });
-//                 }
-//             }
-//         }
-//     }
-// }
-
 function init_marquee(container: HTMLElement): void {
     const type = { "vertical": ["Height", "Y"], "horizontal": ["Width", "X"] }[container.className.substring(10)];
     while (container.querySelectorAll("p").length > 1) {
@@ -116,7 +90,7 @@ function init_marquee(container: HTMLElement): void {
     const marquee = container.firstElementChild as HTMLElement;
     if (marquee.querySelector("p")[`offset${type[0]}`] > 0) {
         const copies = Math.max(Math.ceil(container[`offset${type[0]}`] / container.querySelector("p")[`offset${type[0]}`]) + 1, 2);
-        for (var i = 0; i < copies - 1; i++) {
+        for (let i = 0; i < copies - 1; i++) {
             marquee.appendChild(container.querySelector("p").cloneNode(true));
         }
         marquee.animate([
@@ -129,12 +103,48 @@ function init_marquee(container: HTMLElement): void {
     }
 }
 
+interface time {
+    h24: string;
+    h12: string;
+    min: string;
+    sec: string;
+    date: number;
+    month: number;
+    year: number;
+    per: string;
+    wday: string;
+    mname: string;
+}
+
+function get_time(): time {
+    const time = new Date();
+    return {
+        h24: String(time.getHours()).padStart(2, "0"),
+        h12: String(time.getHours() % 12).padStart(2, "0"),
+        min: String(time.getMinutes()).padStart(2, "0"),
+        sec: String(time.getSeconds()).padStart(2, "0"),
+        date: time.getDate(),
+        month: time.getMonth(),
+        year: time.getFullYear(),
+        per: time.getHours() < 12 ? "AM" : "PM",
+        wday: time.toLocaleString("default", { weekday: "long" }),
+        mname: time.toLocaleString("default", { month: "long" })
+    }
+}
+
+
 function refresh_clocks(): void {
-    const time = new Date().toTimeString().substring(0, 8);
+    const time = get_time();
+    //const time = new Date().toTimeString().substring(0, 8);
     const clocks = document.getElementsByClassName("clock") as HTMLCollectionOf<HTMLElement>;
     for (const clock of clocks) {
+        const matches = match_template(clock.dataset.format);
+        let output_string = "";
+        for (let index = 0; index < matches.tags.length; index++) {
+            output_string += `${time[matches.tags[index]]}${matches.spacers[index]}`;
+        }
         const clock_text = clock.firstElementChild as HTMLElement;
-        clock_text.innerText = time;
+        clock_text.innerText = output_string;
     }
     setTimeout(refresh_clocks, 1000);
 }

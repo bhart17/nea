@@ -80,6 +80,7 @@
                         "size": 1,
                         "content": [{
                             "type": "clock",
+                            "format": "${wday} ${date} ${mname} ${year}, ${h24}:${min}:${sec}",
                             "style": {
                                 "font-family": "Arial",
                                 "font-size": "30px",
