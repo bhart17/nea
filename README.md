@@ -10,8 +10,7 @@ Nodes follow a standard format
     "type": "type",
     "parameter1": "argument",
     "parameter2": "argument",
-    ...
-    "content": [ ... ]
+    "content": []
 }
 ```
 Every node has a `type` and a `content` parameter, and different `type` elements have unique additional parameters.
@@ -44,7 +43,7 @@ Example
 {
     "type": "row",
     "size": 2,
-    "content": [ ... ]
+    "content": []
 }
 ```
 ### **Content nodes**
@@ -54,7 +53,7 @@ Empty nodes are empty containers and can be used as spacers.
 >`"type": "empty"`
 
 >`"container-style": Object`  
-> An Object that contains any valid CSS3 properties and their values, used to style the empty container
+>An Object that contains any valid CSS3 properties and their values, used to style the empty container
 
 Empty nodes are the ony nodes that do not have `content`.  
 Example
@@ -74,7 +73,7 @@ Text nodes display text statically on the page.
 >An Object that contains any valid CSS3 properties and their values, used to style the `<p>` HTML element that contains the text
 
 >`"content": Object`  
->An Object that contains the source for the text to be drawn from
+>An Object that contains the source for the text to be drawn from as a [text content Object](#text-content-object)
 
 Example
 ```json
@@ -87,7 +86,7 @@ Example
     "container-style": { 
         "background-color": "red"
     },
-    "content": { ... }
+    "content": {}
 }
 ```
 ### Image
@@ -109,3 +108,151 @@ Example
     "content": "https://cdn.discordapp.com/attachments/419612262949453846/927928163495985182/tom.jpg"
 }
 ```
+### Video
+Video nodes display videos that autoplay and loop.
+>`"type": "video"`
+
+>`"container-style": Object`
+
+>`"content": string`  
+>A string that holds a URL from which the video can be loaded
+
+Example
+```json
+{
+    "type": "video",
+    "container-style": { 
+        "background-color": "red"
+    },
+    "content": "https://www.w3schools.com/tags/movie.mp4"
+}
+```
+### Slideshow
+Slideshow nodes display a looping list of videos or images, as [slideshow content Objects](#slideshow-content-object). Videos play until they have completed, and then progress to the next slide. Images show for a pre-defined length of time.
+>`"type": "slideshow"`
+
+>`"container-style": Object`
+
+>`"content": Array`  
+>An array of [slideshow content Objects](#slideshow-content-object)
+
+Example
+```json
+{
+    "type": "slideshow",
+    "container-style": {
+        "background-color": "red"
+    },
+    "content": []
+}
+```
+### Marquee
+Marquee nodes display scrolling text horizontally or vertically.
+>`"type": "scrolling-horizontal" | "scrolling-vertical"`
+
+>`"style": Object`  
+>An Object that contains any valid CSS3 properties and their values, used to style the `<p>` HTML element that contains the text
+
+>`"container-style": Object`
+
+>`"content": Array`  
+>An array of [text content Objects](#text-content-object)
+
+Example
+```json
+{
+    "type": "scrolling-vertical",
+    "style": {
+        "font-family": "Arial",
+        "font-size": "30px"
+    },
+    "container-style": {
+        "background-color": "red"
+    },
+    "content": []
+}
+```
+### **Content Objects**
+Inside of some [content nodes](#content-nodes), content is defined by a content Object. This tells the node where it should source its content from when this type content is more complex than a string.
+### Text content Object
+Inside of [text](#text) and [marquee](#marqee) nodes, the content is specified as a text content Object.
+- text
+    >Text where the content is a static string
+
+    >`"type": "text"`
+
+    >`"content": string`  
+    >The string of content to be displayed
+- rss
+    >This text pulls data from an RSS feed
+
+    >`'type": "rss"`
+
+    >`"format": string`  
+    >A [template string](#template-string) that defines how the RSS content should be formatted. Any tags used in the template must exist on the RSS feed
+
+    >`"length": integer`  
+    >The maximum number of elements from the feed to display. A value of `-1` will use every element in the response
+
+    >`"url": string`  
+    >The URL of the RSS feed
+- clock
+    >A realtime clock
+
+    >`"type": "clock"`
+
+    >`"format": string`  
+    >A [template string](#template-string) that defines how the clock should be formatted. Valid tags are
+    >- `h12` - hour, 0-12
+    >- `h24` - hour, 0-24
+    >- `min` - minute
+    >- `sec` - second
+    >- `day` - day, 0-31
+    >- `month` - month, 0-12
+    >- `year` - year
+    >- `wday` - weekday (e.g. 'Wednesday')
+    >- `mname` - month name (e.g. 'July')
+    >- `per` - period of day (e.g. 'PM')
+
+Example
+```json
+{
+    "type": "rss",
+    "format": "${title} - ${description} - ",
+    "length": 5,
+    "url": "http://feeds.bbci.co.uk/news/rss.xml"
+}
+```
+### Slideshow content Object
+Inside of [slideshows](#slideshow), there are Arrays of slidshow content Objects.
+- image
+    >`"type": "image"`
+
+    >`"time": integer`  
+    >The number of milliseconds that this image should be shown for, before progressing to the next slide
+
+    >`"content": string`  
+    >A string that holds a URL from which the image can be loaded
+- video
+    >`"type": "video"`
+
+    >`"content": string`  
+    >A string that holds a URL from which the video can be loaded
+
+Example
+```json
+{
+    "type": "image",
+    "time": 3000,
+    "content": "https://cdn.discordapp.com/attachments/419612262949453846/927928163495985182/tom.jpg"
+}
+```
+
+### **Template string**
+Template strings follow a similar style to JavaScript [template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals). They are contained in regular JSON string deliminators (`"`), rather than backticks. A string has syntax such as  
+`"${<tag1>}<spacer1>${<tag2>}<spacer2>"`  
+Each `${}` is replaced by the data that the tag represents. For example,  
+`"${title} - ${description}"`  
+when used in an [RSS feed](#text-content-object) could become  
+`"Elizabeth Holmes: Theranos founder convicted of fraud - The Silicon Valley ex-CEO faces a lengthy term in prison for defrauding investors."`  
+`$` characters cannot be used inside of tags or spacers.
