@@ -4,3 +4,5 @@ src/serve/cache/
 __pycache__/
 package.json
 package-lock.json
+.vscode
+dist/
