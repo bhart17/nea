@@ -9,7 +9,7 @@ def main() -> None:
 
     content = load_content()
 
-    env = Environment(loader=FileSystemLoader("src/templates"),
+    env = Environment(loader=FileSystemLoader("templates"),
                       autoescape=select_autoescape(enabled_extensions=()))
 
     for i in content.keys():
@@ -17,20 +17,23 @@ def main() -> None:
 
     eel.init(SERVE_PATH)
 
-    eel.start('cache/index.html',
-              mode="chrome",
-              cmdline_args=[
-                  "--start-fullscreen",
-                  "--autoplay-policy=no-user-gesture-required"
-              ],
-              block=False)
+    eel.start(
+        'cache/index.html',
+        #   mode="chrome",
+        #   cmdline_args=[
+        #       "--start-fullscreen",
+        #       "--autoplay-policy=no-user-gesture-required"
+        #   ],
+        mode='custom',
+        cmdline_args=['node_modules/electron/dist/electron', '.'],
+        block=False)
 
     while True:
         eel.sleep(1)
 
 
 def load_content() -> dict:
-    with open("src/content2.json", "r") as file:
+    with open("content.json", "r") as file:
         return json.load(file)
 
 
