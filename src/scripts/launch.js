@@ -1,17 +1,24 @@
 const { app, BrowserWindow } = require('electron');
 
-let mainWindow
+let mainWindow;
 
 function createWindow() {
     mainWindow = new BrowserWindow({
+        fullscreen: true,
         webPreferences: {
-            nodeIntegration: true
-        }
+            sandbox: true
+                //     nodeIntegration: true
+        },
+        show: false
     })
 
     mainWindow.loadURL('http://localhost:8000/cache/index.html');
 
     // mainWindow.webContents.openDevTools()
+
+    mainWindow.once('ready-to-show', () => {
+        mainWindow.show()
+    })
 
     mainWindow.on('closed', () => {
         mainWindow = null

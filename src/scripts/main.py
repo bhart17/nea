@@ -19,13 +19,9 @@ def main() -> None:
 
     eel.start(
         'cache/index.html',
-        #   mode="chrome",
-        #   cmdline_args=[
-        #       "--start-fullscreen",
-        #       "--autoplay-policy=no-user-gesture-required"
-        #   ],
         mode='custom',
-        cmdline_args=['node_modules/electron/dist/electron', '.'],
+        cmdline_args=['dist/nea-1.0.0.AppImage', '.'],
+        #cmdline_args=['node_modules/electron/dist/electron', '.'],
         block=False)
 
     while True:
@@ -52,6 +48,11 @@ def fetch_rss(url: str, tags: list[str], max_items: int) -> list:
             return feed
         status = RssStatus.INVALID_TAG
     return [status.value]
+
+
+@eel.expose
+def foo():
+    return "bar"
 
 
 if __name__ == "__main__":
