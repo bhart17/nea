@@ -155,6 +155,9 @@ Marquee nodes display scrolling text horizontally or vertically.
 
 >`"container-style": Object`
 
+>`"speed": number`
+>The speed of the scrolling text in pixels per millisecond
+
 >`"content": Array`  
 >An array of [text content Objects](#text-content-object)
 
