@@ -4,6 +4,7 @@ let mainWindow;
 
 function createWindow() {
     mainWindow = new BrowserWindow({
+        darkTheme: true,
         fullscreen: true,
         webPreferences: {
             sandbox: true

@@ -2,6 +2,16 @@ import eel
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 import json
 from rss_parser import RssFeed, RssStatus
+import sys
+import os
+
+try:
+    wd = sys._MEIPASS
+    ELECTRON_PATH = os.path.join(wd,
+                                 "electron/nea-electron-test-1.0.0.AppImage")
+except AttributeError:
+    wd = os.getcwd()
+    ELECTRON_PATH = os.path.join(wd, "node_modules/electron/dist/electron")
 
 
 def main() -> None:
@@ -17,12 +27,10 @@ def main() -> None:
 
     eel.init(SERVE_PATH)
 
-    eel.start(
-        'cache/index.html',
-        mode='custom',
-        cmdline_args=['dist/nea-1.0.0.AppImage', '.'],
-        #cmdline_args=['node_modules/electron/dist/electron', '.'],
-        block=False)
+    eel.start('cache/index.html',
+              mode='custom',
+              cmdline_args=[ELECTRON_PATH, '.'],
+              block=False)
 
     while True:
         eel.sleep(1)

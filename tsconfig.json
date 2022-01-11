@@ -3,6 +3,6 @@
         "target": "es2020",
         "module": "commonjs",
         "sourceMap": true,
-        "outDir": "serve/cache"
+        "outDir": "src/serve/cache"
     }
 }
