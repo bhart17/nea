@@ -4,6 +4,7 @@ src/serve/cache/
 __pycache__/
 package-lock.json
 .vscode
+build/
 dist/
 electron/
 .mypy_cache/
