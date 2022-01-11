@@ -6,3 +6,5 @@ package-lock.json
 .vscode
 dist/
 electron/
+.mypy_cache/
+venv/
