@@ -1,7 +1,7 @@
 {
     "name": "signage-client",
     "version": "0.1.0",
-    "main": "scripts/launch.js",
+    "main": "./src/scripts/launch.js",
     "author": "Bob Hart <15thart@thelangton.org.uk>",
     "description": "NEA Digital Signage Client Renderer",
     "license": "MIT",
@@ -20,7 +20,7 @@
         "productName": "Signage Client",
         "copyright": "Copyright © ${author}",
         "directories": {
-            "output": "electron"
+            "output": "src/electron"
         },
         "linux": {
             "target": "AppImage",

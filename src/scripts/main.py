@@ -11,15 +11,15 @@ try:
                                  "electron/nea-electron-test-1.0.0.AppImage")
 except AttributeError:
     wd = os.getcwd()
-    ELECTRON_PATH = os.path.join(wd, "node_modules/electron/dist/electron")
+    ELECTRON_PATH = "node_modules/electron/dist/electron"
 
 
 def main() -> None:
-    SERVE_PATH = "serve"
+    SERVE_PATH = "src/serve"
 
     content = load_content()
 
-    env = Environment(loader=FileSystemLoader("templates"),
+    env = Environment(loader=FileSystemLoader("src/templates"),
                       autoescape=select_autoescape(enabled_extensions=()))
 
     for i in content.keys():
@@ -37,7 +37,7 @@ def main() -> None:
 
 
 def load_content() -> dict:
-    with open("content.json", "r") as file:
+    with open("src/content.json", "r") as file:
         return json.load(file)
 
 

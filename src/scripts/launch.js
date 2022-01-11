@@ -10,7 +10,7 @@ function createWindow() {
             sandbox: true
                 //     nodeIntegration: true
         },
-        show: false
+        show: true
     })
 
     mainWindow.loadURL('http://localhost:8000/cache/index.html');
