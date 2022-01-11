@@ -7,19 +7,23 @@ import os
 
 try:
     wd = sys._MEIPASS
-    ELECTRON_PATH = os.path.join(wd,
-                                 "electron/nea-electron-test-1.0.0.AppImage")
+    ELECTRON_PATH = os.path.join(wd, "electron/electron.AppImage")
+    SERVE_PATH = os.path.join(wd, "serve")
+    ASSETS_PATH = os.path.join(wd, "assets")
 except AttributeError:
     wd = os.getcwd()
-    ELECTRON_PATH = "node_modules/electron/dist/electron"
+    ASSETS_PATH = os.path.join(wd, "src/assets")
+    SERVE_PATH = os.path.join(wd, "src/serve")
+    ELECTRON_PATH = os.path.join(wd, "node_modules/electron/dist/electron")
 
 
 def main() -> None:
-    SERVE_PATH = "src/serve"
+    #SERVE_PATH = os.path.join(wd, "src/serve")
 
     content = load_content()
 
-    env = Environment(loader=FileSystemLoader("src/templates"),
+    env = Environment(loader=FileSystemLoader(
+        os.path.join(ASSETS_PATH, "templates")),
                       autoescape=select_autoescape(enabled_extensions=()))
 
     for i in content.keys():
@@ -37,7 +41,7 @@ def main() -> None:
 
 
 def load_content() -> dict:
-    with open("src/content.json", "r") as file:
+    with open(os.path.join(ASSETS_PATH, "content.json"), "r") as file:
         return json.load(file)
 
 

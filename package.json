@@ -18,6 +18,7 @@
     "build": {
         "appId": "com.electron.${name}",
         "productName": "Signage Client",
+        "artifactName": "electron.${ext}",
         "copyright": "Copyright © ${author}",
         "directories": {
             "output": "src/electron"

@@ -4,13 +4,12 @@ let mainWindow;
 
 function createWindow() {
     mainWindow = new BrowserWindow({
+        icon: `${app.getAppPath()}/src/assets/icon.png`,
         darkTheme: true,
         fullscreen: true,
-        webPreferences: {
-            sandbox: true
-                //     nodeIntegration: true
-        },
-        show: true
+        webPreferences: { sandbox: true },
+        show: true,
+        center: true
     })
 
     mainWindow.loadURL('http://localhost:8000/cache/index.html');
