@@ -1,0 +1,31 @@
+{
+    "name": "signage-client",
+    "version": "0.1.0",
+    "main": "./src/scripts/launch.js",
+    "author": "Bob Hart <15thart@thelangton.org.uk>",
+    "description": "NEA Digital Signage Client Renderer",
+    "license": "MIT",
+    "homepage": "https://github.com/bhart17/nea",
+    "scripts": {
+        "start": "electron .",
+        "app:dir": "electron-builder --dir",
+        "app:dist": "electron-builder"
+    },
+    "devDependencies": {
+        "electron-builder": "^22.14.5",
+        "electron": "^16.0.6"
+    },
+    "build": {
+        "appId": "com.electron.${name}",
+        "productName": "Signage Client",
+        "artifactName": "electron.${ext}",
+        "copyright": "Copyright © ${author}",
+        "directories": {
+            "output": "src/electron"
+        },
+        "linux": {
+            "target": "AppImage",
+            "category": "Utility"
+        }
+    }
+}
