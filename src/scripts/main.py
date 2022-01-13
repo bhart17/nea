@@ -18,8 +18,6 @@ except AttributeError:
 
 
 def main() -> None:
-    #SERVE_PATH = os.path.join(wd, "src/serve")
-
     content = load_content()
 
     env = Environment(loader=FileSystemLoader(

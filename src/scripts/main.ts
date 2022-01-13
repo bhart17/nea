@@ -135,7 +135,6 @@ function get_time(): time {
 
 function refresh_clocks(): void {
     const time = get_time();
-    //const time = new Date().toTimeString().substring(0, 8);
     const clocks = document.getElementsByClassName("clock") as HTMLCollectionOf<HTMLElement>;
     for (const clock of clocks) {
         const matches = match_template(clock.dataset.format);
