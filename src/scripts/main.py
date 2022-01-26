@@ -5,17 +5,6 @@ from rss_parser import RssFeed, RssStatus
 import sys
 import os
 
-try:
-    wd = sys._MEIPASS
-    ELECTRON_PATH = os.path.join(wd, "electron/electron.AppImage")
-    SERVE_PATH = os.path.join(wd, "serve")
-    ASSETS_PATH = os.path.join(wd, "assets")
-except AttributeError:
-    wd = os.getcwd()
-    ASSETS_PATH = os.path.join(wd, "src/assets")
-    SERVE_PATH = os.path.join(wd, "src/serve")
-    ELECTRON_PATH = os.path.join(wd, "node_modules/electron/dist/electron")
-
 
 def main() -> None:
     content = load_content()
@@ -66,4 +55,14 @@ def foo():
 
 
 if __name__ == "__main__":
+    try:
+        wd = sys._MEIPASS
+        ELECTRON_PATH = os.path.join(wd, "electron/electron.AppImage")
+        SERVE_PATH = os.path.join(wd, "serve")
+        ASSETS_PATH = os.path.join(wd, "assets")
+    except AttributeError:
+        wd = os.getcwd()
+        ASSETS_PATH = os.path.join(wd, "src/assets")
+        SERVE_PATH = os.path.join(wd, "src/serve")
+        ELECTRON_PATH = os.path.join(wd, "node_modules/electron/dist/electron")
     main()
