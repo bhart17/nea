@@ -1,3 +1,4 @@
+from typing import List
 import requests
 import xml.etree.ElementTree
 from enum import Enum
@@ -9,21 +10,26 @@ class RssStatus(Enum):
     GOOD = ""
     UNFETCHABLE = "The requested resource could not be fetched"
     INVALID_TAG = "The requested tags are not present on the resource"
+    NULL = None
 
 
 class RssFeed:
     def __init__(self, url: str) -> None:
         self.url = url
-
+        self.__status = RssStatus.NULL
         self.refresh()
 
     def __make_request(self, url: str) -> requests.Response:
-        response = requests.get(url)
-        if response.status_code == 200:
-            if "Content-Type" in response.headers:
-                if "xml" in response.headers["Content-Type"]:
-                    return response
-        return None
+        try:
+            response = requests.get(url)
+            if response.status_code == 200:
+                if "Content-Type" in response.headers:
+                    if "xml" in response.headers["Content-Type"]:
+                        return response
+            return None
+        except (requests.ConnectionError, requests.Timeout,
+                requests.TooManyRedirects, requests.RequestException):
+            return None
 
     def __parse_response(self, response: Response):
         if response != None:

@@ -1,0 +1,95 @@
+{
+    "template-html.j2": [
+        "index.html", [{
+                "type": "row",
+                "size": 9,
+                "content": [{
+                        "type": "column",
+                        "size": 2,
+                        "content": [{
+                                "type": "row",
+                                "size": 1,
+                                "content": [{
+                                    "type": "empty",
+                                    "container_style": {
+                                        "background-color": "red"
+                                    }
+                                }]
+                            },
+                            {
+                                "type": "row",
+                                "size": 6,
+                                "content": [{
+                                    "type": "empty",
+                                    "container_style": {
+                                        "background-color": "blue"
+                                    }
+                                }]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "column",
+                        "size": 1,
+                        "content": [{
+                                "type": "row",
+                                "size": 3,
+                                "content": [{
+                                    "type": "empty",
+                                    "container_style": {
+                                        "background-color": "green"
+                                    }
+                                }]
+                            },
+                            {
+                                "type": "row",
+                                "size": 1,
+                                "content": [{
+                                    "type": "empty",
+                                    "container_style": {
+                                        "background-color": "yellow"
+                                    }
+                                }]
+                            },
+                            {
+                                "type": "row",
+                                "size": 16,
+                                "content": [{
+                                    "type": "empty",
+                                    "container_style": {
+                                        "background-color": "orange"
+                                    }
+                                }]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "row",
+                "size": 1,
+                "content": [{
+                        "type": "column",
+                        "size": 1,
+                        "content": [{
+                            "type": "empty",
+                            "container_style": {
+                                "background-color": "purple"
+                            }
+                        }]
+                    },
+                    {
+                        "type": "column",
+                        "size": 9,
+                        "content": [{
+                            "type": "empty",
+                            "container_style": {
+                                "background-color": "green"
+                            }
+                        }]
+                    }
+                ]
+            }
+        ]
+    ]
+}
