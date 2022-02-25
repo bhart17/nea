@@ -14,7 +14,7 @@ function createWindow() {
 
     mainWindow.loadURL('http://localhost:8000/cache/index.html');
 
-    // mainWindow.webContents.openDevTools()
+    //mainWindow.webContents.openDevTools()
 
     mainWindow.once('ready-to-show', () => {
         mainWindow.show()
@@ -27,10 +27,10 @@ function createWindow() {
 
 app.on('ready', createWindow)
 
-app.on('window-all-closed', function() {
+app.on('window-all-closed', function () {
     if (process.platform !== 'darwin') app.quit()
 })
 
-app.on('activate', function() {
+app.on('activate', function () {
     if (mainWindow === null) createWindow()
 })

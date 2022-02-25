@@ -22,6 +22,7 @@ function init_rss_feeds(): void {
     const rss_feeds = document.getElementsByClassName("rss") as HTMLCollectionOf<HTMLElement>;
     for (const rss_feed of rss_feeds) {
         const matches = match_template(rss_feed.dataset.format);
+        console.log("here")
         eel.fetch_rss(rss_feed.dataset.url, matches.tags, parseInt(rss_feed.dataset.length))().then((rss: string[] | object[]) => {
             if (typeof rss[0] != "string") {
                 let output_string = "";

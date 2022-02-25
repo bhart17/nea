@@ -12,8 +12,10 @@ def main() -> None:
 
     while True:
         eel.sleep(refresh_time)
+        print("Requesting refresh")
         new_content, refresh_time = loader.load_content(ASSETS_PATH)
         if content != new_content:
+            print("Content updated, refreshing")
             content = new_content
             iter_content(content, env)
             eel.refresh()

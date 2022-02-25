@@ -98,6 +98,7 @@ img {
 }
 
 .marquee-vertical {
+    text-align: center;
     display: inline-block;
     text-align: center;
 }

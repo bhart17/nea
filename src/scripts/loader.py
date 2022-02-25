@@ -1,3 +1,4 @@
+from typing import Union
 import requests
 import json
 import os
@@ -21,7 +22,7 @@ def load_content(assets_path: str) -> tuple[dict, int]:
             return json.load(file), config["refreshTime"]
 
 
-def make_request(ip: str, layout: str):
+def make_request(ip: str, layout: str) -> Union[str, None]:
     try:
         response = requests.get(f"{ip}/layout/{layout}")
         if response.status_code == 200:
